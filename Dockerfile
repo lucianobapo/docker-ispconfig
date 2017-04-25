@@ -59,7 +59,8 @@ RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstri
 RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php7.0-memcached php7.0-ps
 RUN phpenmod mcrypt mbstring
 
-
+RUN service nginx restart
+RUN service php7.0-fpm restart
 
 # --- 8 Install Postfix, Dovecot, MySQL, phpMyAdmin, rkhunter, binutils
 #RUN echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections
@@ -199,8 +200,4 @@ EXPOSE 20 21 22 53/udp 53/tcp 80 443 953 8080 30000 30001 30002 30003 30004 3000
 
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
-RUN service nginx restart
-RUN service php7.0-fpm restart
-
-CMD ["nginx", "-g", "daemon off;"]
-#CMD ["/bin/bash", "/start.sh"]
+CMD ["/bin/bash", "/start.sh"]
