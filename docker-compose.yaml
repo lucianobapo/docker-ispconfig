@@ -14,8 +14,11 @@ services:
       - DB_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
     ports:
+          - 21:21
+          - 22:22
           - 80:80
           - 443:443
+          - 8080:8080
 volumes:
   db-data:
     driver: local
