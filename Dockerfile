@@ -200,7 +200,8 @@ ADD ./bin/systemctl /bin/systemctl
 
 RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
 # RUN mysqladmin -u root password pass
-RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+#RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
 RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
