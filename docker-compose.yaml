@@ -15,7 +15,7 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MAILMAN_EMAIL_HOST=test.com
       - MAILMAN_EMAIL=test@test.com
-      - MAILMAN_PASS=pass
+      - MAILMAN_PASS=password
     ports:
           - 21:21
           - 22:22
