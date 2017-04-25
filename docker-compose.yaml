@@ -22,6 +22,6 @@ services:
 volumes:
   db-data:
     driver: local
-networks:
-    default:
-        driver: bridge
+#networks:
+#    default:
+#        driver: bridge
