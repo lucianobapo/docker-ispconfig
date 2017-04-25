@@ -46,8 +46,8 @@ RUN apt-get -y install nano vim-nox
 #RUN apt-get -y update && apt-get -y upgrade
 
 # --- 6 Change The Default Shell
-RUN echo "dash  dash/sh boolean no" | debconf-set-selections
-RUN dpkg-reconfigure dash
+#RUN echo "dash  dash/sh boolean no" | debconf-set-selections
+#RUN dpkg-reconfigure dash
 
 # --- 7 Synchronize the System Clock
 RUN apt-get -y install ntp ntpdate
