@@ -26,7 +26,7 @@ git cmt
 
 docker-machine ssh ispconfig-machine "sudo curl -o /usr/local/bin/docker-compose -L 'https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)'"
 #docker-machine ssh ispconfig-machine "curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose | sudo -i"
-#docker-machine ssh ispconfig-machine "git clone https://github.com/lucianobapo/docker-ispconfig.git || true && cd /home/docker/docker-ispconfig && git pull && curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && docker-compose down && docker-compose up -d"
+docker-machine ssh ispconfig-machine "cd /home/docker && git clone https://github.com/lucianobapo/docker-ispconfig.git || true && cd /home/docker/docker-ispconfig && git pull && docker-compose down && docker-compose up -d"
 #if [ ! -f /home/luciano/code/docker-ispconfig ]; then
 #pwd
 #fi
