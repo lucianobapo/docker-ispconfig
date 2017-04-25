@@ -1,5 +1,5 @@
 #!/bin/bash
-service nginx start
+#service nginx start
 # DOCKERPASS=$(openssl rand -base64 32)
 # echo "ROOT password : $DOCKERPASS"
 # echo "root:pass"|chpasswd
