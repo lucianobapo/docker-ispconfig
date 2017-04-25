@@ -111,7 +111,7 @@ RUN apt-get -y install mailman
 ADD ./etc/aliases /etc/aliases
 RUN newaliases
 RUN service postfix restart
-RUN ln -s /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf
+#RUN ln -s /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf
 
 # --- 14 Install PureFTPd And Quota
 
