@@ -171,7 +171,7 @@ RUN chown www-data /var/lib/squirrelmail/tmp
 #RUN service mysql restart
 
 # --- 20 Install ISPConfig 3
-RUN cd /tmp && cd . && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
+RUN cd /tmp && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
 RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
 #RUN service mysql restart
 # RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
