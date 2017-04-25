@@ -20,10 +20,10 @@ sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_i
 fi
 # php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+service nginx restart
+service mysql restart
+
 if [ ! -f /usr/local/ispconfig/interface/lib/config.inc.php ]; then
 	php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 	killall apache2
-	service nginx restart
-	pwd
-
 fi
