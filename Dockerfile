@@ -26,7 +26,7 @@ MAINTAINER Luciano Porto <luciano.bapo@gmail.com> version: 0.1
 ENV DEBIAN_FRONTEND noninteractive
 
 ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
-RUN mysqld
+RUN service mysql start
 
 # --- 1 Update Your Debian Installation
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
