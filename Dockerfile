@@ -68,7 +68,7 @@ RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d
 RUN apt-get update -y && apt-get install -y hhvm
 
 # --- 7.3  Install Let's Encrypt
-RUN apt-get install -y python-certbot -t jessie-backports
+RUN apt-get install -y python-certbot jessie-backports
 
 # --- 8 Install Postfix, Dovecot, MySQL, phpMyAdmin, rkhunter, binutils
 #RUN echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections
