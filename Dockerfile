@@ -25,6 +25,8 @@ MAINTAINER Luciano Porto <luciano.bapo@gmail.com> version: 0.1
 # Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
+ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+
 # --- 1 Update Your Debian Installation
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
 RUN apt-get -y update && apt-get -y upgrade
@@ -202,7 +204,7 @@ RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfi
 # RUN mysqladmin -u root password pass
 #RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
-ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+
 RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
@@ -213,4 +215,4 @@ RUN mkdir -p /var/backup/sql
 
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
-CMD ["/bin/bash", "/start.sh"]
+CMD ["mysqld", "/bin/bash", "/start.sh"]
