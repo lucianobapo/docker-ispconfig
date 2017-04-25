@@ -95,70 +95,70 @@ RUN systemctl disable spamassassin
 # RUN service apache2 restart
 
 # --- 13 Install Mailman
-#RUN echo 'mailman mailman/default_server_language en' | debconf-set-selections
-#RUN apt-get -y install mailman
-## RUN ["/usr/lib/mailman/bin/newlist", "-q", "mailman", "mail@mail.com", "pass"]
-#ADD ./etc/aliases /etc/aliases
-#RUN newaliases
-#RUN service postfix restart
-#RUN ln -s /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf
+RUN echo 'mailman mailman/default_server_language en' | debconf-set-selections
+RUN apt-get -y install mailman
+# RUN ["/usr/lib/mailman/bin/newlist", "-q", "mailman", "mail@mail.com", "pass"]
+ADD ./etc/aliases /etc/aliases
+RUN newaliases
+RUN service postfix restart
+RUN ln -s /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf
 
 # --- 14 Install PureFTPd And Quota
 
 # install package building helpers
-#RUN apt-get -y --force-yes install dpkg-dev debhelper openbsd-inetd
+RUN apt-get -y --force-yes install dpkg-dev debhelper openbsd-inetd
 # install dependancies
-#RUN apt-get -y build-dep pure-ftpd
+RUN apt-get -y build-dep pure-ftpd
 # build from source
-#RUN mkdir /tmp/pure-ftpd-mysql/ && \
-#    cd /tmp/pure-ftpd-mysql/ && \
-#    apt-get source pure-ftpd-mysql && \
-#    cd pure-ftpd-* && \
-#    sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && \
-#    dpkg-buildpackage -b -uc
+RUN mkdir /tmp/pure-ftpd-mysql/ && \
+    cd /tmp/pure-ftpd-mysql/ && \
+    apt-get source pure-ftpd-mysql && \
+    cd pure-ftpd-* && \
+    sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && \
+    dpkg-buildpackage -b -uc
 # install the new deb files
-#RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb
-#RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb
+RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb
+RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb
 # Prevent pure-ftpd upgrading
-#RUN apt-mark hold pure-ftpd-common pure-ftpd-mysql
+RUN apt-mark hold pure-ftpd-common pure-ftpd-mysql
 # setup ftpgroup and ftpuser
-#RUN groupadd ftpgroup
-#RUN useradd -g ftpgroup -d /dev/null -s /etc ftpuser
-#RUN apt-get -y install quota quotatool
-#ADD ./etc/default/pure-ftpd-common /etc/default/pure-ftpd-common
-#RUN echo 1 > /etc/pure-ftpd/conf/TLS
-#RUN mkdir -p /etc/ssl/private/
-## RUN openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem
-## RUN chmod 600 /etc/ssl/private/pure-ftpd.pem
+RUN groupadd ftpgroup
+RUN useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+RUN apt-get -y install quota quotatool
+ADD ./etc/default/pure-ftpd-common /etc/default/pure-ftpd-common
+RUN echo 1 > /etc/pure-ftpd/conf/TLS
+RUN mkdir -p /etc/ssl/private/
+# RUN openssl req -x509 -nodes -days 7300 -newkey rsa:2048 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem
+# RUN chmod 600 /etc/ssl/private/pure-ftpd.pem
 # RUN service pure-ftpd-mysql restart
 
 # --- 15 Install BIND DNS Server
-#RUN apt-get -y install bind9 dnsutils
+RUN apt-get -y install bind9 dnsutils
 
 # --- 16 Install Vlogger, Webalizer, And AWStats
-#RUN apt-get -y install vlogger webalizer awstats geoip-database libclass-dbi-mysql-perl
-#ADD etc/cron.d/awstats /etc/cron.d/
+RUN apt-get -y install vlogger webalizer awstats geoip-database libclass-dbi-mysql-perl
+ADD etc/cron.d/awstats /etc/cron.d/
 
 # --- 17 Install Jailkit
-#RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils
-#RUN cd /tmp && wget http://olivier.sessink.nl/jailkit/jailkit-2.17.tar.gz && tar xvfz jailkit-2.17.tar.gz && cd jailkit-2.17 && ./debian/rules binary
-#RUN cd /tmp && dpkg -i jailkit_2.17-1_*.deb && rm -rf jailkit-2.17*
+RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils
+RUN cd /tmp && wget http://olivier.sessink.nl/jailkit/jailkit-2.17.tar.gz && tar xvfz jailkit-2.17.tar.gz && cd jailkit-2.17 && ./debian/rules binary
+RUN cd /tmp && dpkg -i jailkit_2.17-1_*.deb && rm -rf jailkit-2.17*
 
 # --- 18 Install fail2ban
-#RUN apt-get -y install fail2ban
-#ADD ./etc/fail2ban/jail.local /etc/fail2ban/jail.local
-#ADD ./etc/fail2ban/filter.d/pureftpd.conf /etc/fail2ban/filter.d/pureftpd.conf
-#ADD ./etc/fail2ban/filter.d/dovecot-pop3imap.conf /etc/fail2ban/filter.d/dovecot-pop3imap.conf
-#RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
-#RUN service fail2ban restart
+RUN apt-get -y install fail2ban
+ADD ./etc/fail2ban/jail.local /etc/fail2ban/jail.local
+ADD ./etc/fail2ban/filter.d/pureftpd.conf /etc/fail2ban/filter.d/pureftpd.conf
+ADD ./etc/fail2ban/filter.d/dovecot-pop3imap.conf /etc/fail2ban/filter.d/dovecot-pop3imap.conf
+RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
+RUN service fail2ban restart
 
 # --- 19 Install squirrelmail
-#RUN apt-get -y install squirrelmail
-#ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
-#ADD ./etc/squirrelmail/config.php /etc/squirrelmail/config.php
-#RUN mkdir /var/lib/squirrelmail/tmp
-#RUN chown www-data /var/lib/squirrelmail/tmp
-#RUN service mysql restart
+RUN apt-get -y install squirrelmail
+ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
+ADD ./etc/squirrelmail/config.php /etc/squirrelmail/config.php
+RUN mkdir /var/lib/squirrelmail/tmp
+RUN chown www-data /var/lib/squirrelmail/tmp
+RUN service mysql restart
 
 # --- 20 Install ISPConfig 3
 #RUN cd /tmp && cd . && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
