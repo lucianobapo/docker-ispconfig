@@ -118,7 +118,7 @@ RUN service postfix restart
 # install package building helpers
 RUN apt-get -y --force-yes install dpkg-dev debhelper openbsd-inetd
 # install dependancies
-RUN apt-get -y build-dep pure-ftpd
+RUN apt-get -y build-dep pure-ftpd-common pure-ftpd
 # build from source
 RUN mkdir /tmp/pure-ftpd-mysql/ && \
     cd /tmp/pure-ftpd-mysql/ && \
