@@ -124,11 +124,12 @@ RUN echo "deb-src http://security.debian.org jessie/updates main" > /etc/apt/sou
 RUN apt-get -y update && apt-get -y upgrade
 
 # install package building helpers
-RUN apt-get -y --force-yes --fix-missing install dpkg-dev debhelper openbsd-inetd
+#RUN apt-get -y --force-yes --fix-missing install dpkg-dev debhelper openbsd-inetd
+RUN apt-get -y --force-yes --fix-missing install pure-ftpd-common pure-ftpd-mysql quota quotatool
 
 # install dependancies
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y --force-yes --fix-missing install build-dep pure-ftpd
+#RUN apt-get -y update && apt-get -y upgrade
+#RUN apt-get -y --force-yes --fix-missing install build-dep pure-ftpd
 # build from source
 RUN mkdir /tmp/pure-ftpd-mysql/ && \
     cd /tmp/pure-ftpd-mysql/ && \
