@@ -26,6 +26,7 @@ MAINTAINER Luciano Porto <luciano.bapo@gmail.com> version: 0.1
 ENV DEBIAN_FRONTEND noninteractive
 
 ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+RUN mysqld
 
 # --- 1 Update Your Debian Installation
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
@@ -215,4 +216,4 @@ RUN mkdir -p /var/backup/sql
 
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
-CMD ["mysqld", "/bin/bash", "/start.sh"]
+CMD ["/bin/bash", "/start.sh"]
