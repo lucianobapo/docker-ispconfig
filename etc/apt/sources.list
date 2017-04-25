@@ -1,0 +1,14 @@
+deb     http://httpredir.debian.org/debian jessie main non-free
+deb-src http://httpredir.debian.org/debian jessie main non-free
+deb     http://httpredir.debian.org/debian jessie-updates main non-free
+deb-src http://httpredir.debian.org/debian jessie-updates main non-free
+deb     http://security.debian.org jessie/updates main
+deb-src http://security.debian.org jessie/updates main
+deb     http://http.debian.net/debian jessie main
+deb-src http://http.debian.net/debian jessie main
+deb     http://http.debian.net/debian jessie-updates main
+deb-src http://http.debian.net/debian jessie-updates main
+deb     http://ftp.debian.org/debian jessie-backports main
+deb-src http://ftp.debian.org/debian jessie-backports main
+deb     http://packages.dotdeb.org jessie all
+deb-src http://packages.dotdeb.org jessie all
