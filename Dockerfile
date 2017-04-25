@@ -119,17 +119,18 @@ RUN apt-get -y --force-yes --fix-missing install pure-ftpd-common pure-ftpd-mysq
 #RUN apt-get -y update && apt-get -y upgrade
 #RUN apt-get -y --force-yes --fix-missing install build-dep pure-ftpd
 # build from source
-RUN mkdir /tmp/pure-ftpd-mysql/ && \
-    cd /tmp/pure-ftpd-mysql/ && \
-    apt-get source pure-ftpd-mysql && \
-    cd pure-ftpd-* && \
-    sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && \
-    dpkg-buildpackage -b -uc
-# install the new deb files
-RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb
-RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb
-# Prevent pure-ftpd upgrading
-RUN apt-mark hold pure-ftpd-common pure-ftpd-mysql
+#RUN mkdir /tmp/pure-ftpd-mysql/ && \
+#    cd /tmp/pure-ftpd-mysql/ && \
+#    apt-get source pure-ftpd-mysql && \
+#    cd pure-ftpd-* && \
+#    sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && \
+#    dpkg-buildpackage -b -uc
+## install the new deb files
+#RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb
+#RUN dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb
+## Prevent pure-ftpd upgrading
+#RUN apt-mark hold pure-ftpd-common pure-ftpd-mysql
+
 # setup ftpgroup and ftpuser
 RUN groupadd ftpgroup
 RUN useradd -g ftpgroup -d /dev/null -s /etc ftpuser
