@@ -58,8 +58,11 @@ RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstri
 RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php7.0-memcached php7.0-ps
 RUN phpenmod mcrypt mbstring
 
+ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+
 RUN service nginx restart
 RUN service php7.0-fpm restart
+RUN service mysql restart
 
 # --- 7.2 Install hhvm
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
@@ -202,7 +205,7 @@ RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfi
 # RUN mysqladmin -u root password pass
 #RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
-ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+
 RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
