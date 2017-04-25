@@ -41,13 +41,9 @@ RUN apt-get -y install ssh openssh-server rsync
 # --- 3 Install a shell text editor
 RUN apt-get -y install nano vim-nox
 
-# --- 5 Update Your Debian Installation
-#ADD ./etc/apt/sources.list /etc/apt/sources.list
-#RUN apt-get -y update && apt-get -y upgrade
-
 # --- 6 Change The Default Shell
-#RUN echo "dash  dash/sh boolean no" | debconf-set-selections
-#RUN dpkg-reconfigure dash
+RUN echo "dash  dash/sh boolean no" | debconf-set-selections
+RUN dpkg-reconfigure dash
 
 # --- 7 Synchronize the System Clock
 RUN apt-get -y install ntp ntpdate
