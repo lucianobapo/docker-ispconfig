@@ -205,7 +205,7 @@ ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/ins
 RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
 RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
-RUN mysql -uroot -ppassword < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
+#RUN mysql -uroot -ppassword < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
 # Directory for dump SQL backup
 RUN mkdir -p /var/backup/sql
 RUN freshclam
