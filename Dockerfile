@@ -70,7 +70,7 @@ RUN service php7.0-fpm restart
 RUN apt-get -y install postfix postfix-mysql postfix-doc openssl getmail4 rkhunter binutils dovecot-imapd dovecot-pop3d dovecot-mysql dovecot-sieve dovecot-lmtpd sudo
 ADD ./etc/postfix/master.cf /etc/postfix/master.cf
 RUN service postfix restart
-RUN service mysql restart
+#RUN service mysql restart
 
 # --- 9 Install Amavisd-new, SpamAssassin And Clamav
 RUN apt-get -y install amavisd-new spamassassin clamav clamav-daemon zoo unzip bzip2 arj nomarch lzop cabextract apt-listchanges libnet-ldap-perl libauthen-sasl-perl clamav-docs daemon libio-string-perl libio-socket-ssl-perl libnet-ident-perl zip libnet-dns-perl
