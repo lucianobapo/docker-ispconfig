@@ -23,7 +23,7 @@
 #rsync -rvztPhe "ssh docker@$(docker-machine ip ispconfig-machine)" /home/luciano/code/docker-ispconfig/ $(docker-machine ip ispconfig-machine):/home/docker/docker-ispconfig/
 #ping $(docker-machine ip ispconfig-machine)
 git cmt
-docker-machine ssh ispconfig-machine "git clone https://github.com/lucianobapo/docker-ispconfig.git && cd ~/docker-ispconfig | docker-compose down && docker-compose up -d"
+docker-machine ssh ispconfig-machine "git clone https://github.com/lucianobapo/docker-ispconfig.git -q && cd ~/docker-ispconfig && git pull && docker-compose down && docker-compose up -d"
 #if [ ! -f /home/luciano/code/docker-ispconfig ]; then
 #pwd
 #fi
