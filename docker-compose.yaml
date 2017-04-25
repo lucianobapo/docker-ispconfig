@@ -10,9 +10,12 @@ services:
     environment:
       - DB_NAME=lemp_bdd
       - TABLE_PREFIX=lemp_
-      - DB_HOST=localhost
+      - DB_HOST=lemp
       - DB_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
+      - MAILMAN_EMAIL_HOST=test.com
+      - MAILMAN_EMAIL=test@test.com
+      - MAILMAN_PASS=pass
     ports:
           - 21:21
           - 22:22
