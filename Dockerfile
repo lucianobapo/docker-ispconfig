@@ -27,6 +27,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # --- 1 Update Your Debian Installation
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
+RUN apt-get -y update && apt-get -y upgrade
 RUN curl https://www.dotdeb.org/dotdeb.gpg | apt-key add -
 RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
 RUN echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
