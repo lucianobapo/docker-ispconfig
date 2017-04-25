@@ -1,24 +1,11 @@
 version: '2'
 services:
-  nginx:
-    image: evild/alpine-nginx:openssl
-    container_name: lemp_nginx
-    restart: always
-    links:
-      - php
-    volumes:
-      - ./home/docker/html:/var/www/html/:ro
-    #  - ./home/docker/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
-    #  - ./home/docker/nginx/conf.d:/etc/nginx/conf.d:ro
-    ports:
-      - 80:80
-      - 443:443
-  php:
-    image: evild/alpine-php:latest
-    container_name: lemp_php
+  web:
+    build: .
+    container_name: ispconfig
     restart: always
     volumes:
-      - ./home/docker/html:/var/www/html
+      - ./var/www/html:/var/www/html
     depends_on:
       - db
     links:
@@ -28,9 +15,12 @@ services:
       - TABLE_PREFIX=lemp_
       - DB_HOST=lemp
       - DB_PASSWORD=password
+    ports:
+          - 80:80
+          - 443:443
   db:
     image: mariadb:latest
-    container_name: lemp_mariadb
+    container_name: mariadb
     restart: always
     volumes:
       - db-data:/var/lib/mysql
@@ -39,6 +29,6 @@ services:
 volumes:
   db-data:
     driver: local
-networks:
-    default:
-        driver: bridge
+#networks:
+#    default:
+#        driver: bridge

@@ -18,7 +18,7 @@
 # https://www.howtoforge.com/tutorial/perfect-server-debian-8-jessie-apache-bind-dovecot-ispconfig-3/
 #
 
-FROM ubuntu:zesty
+FROM evild/alpine-nginx:openssl
 
 MAINTAINER Luciano Porto <luciano.bapo@gmail.com> version: 0.1
 
@@ -54,7 +54,7 @@ RUN apt-get -y install ntp ntpdate
 
 # --- 7.1 Install nginx, php7.1
 LABEL Description="Webserver"
-RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
+RUN apt -y install php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
 RUN apt -y install php-memcached memcached php-pear php-imagick imagemagick php-ps php-apcu fcgiwrap
 RUN phpenmod mcrypt mbstring
 
