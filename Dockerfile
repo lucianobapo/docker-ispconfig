@@ -52,9 +52,9 @@ RUN apt-get -y install nano vim-nox
 # --- 7 Synchronize the System Clock
 RUN apt-get -y install ntp ntpdate
 
-# --- 7.1 Install nginx, php7.1
+# --- 7.1 Install nginx, php7.0
 LABEL Description="Webserver"
-RUN apt -y install php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
+RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
 RUN apt -y install memcached imagemagick fcgiwrap php-apcu php-imagick php-memcached php-pear php-ps
 RUN phpenmod mcrypt mbstring
 
@@ -66,7 +66,7 @@ RUN service php7.0-fpm restart
 #RUN echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections
 #RUN echo 'mariadb-server mariadb-server/root_password password pass' | debconf-set-selections
 #RUN echo 'mariadb-server mariadb-server/root_password_again password pass' | debconf-set-selections
-RUN apt-get -y install postfix postfix-mysql postfix-doc mariadb-client mariadb-server openssl getmail4 rkhunter binutils dovecot-imapd dovecot-pop3d dovecot-mysql dovecot-sieve dovecot-lmtpd sudo
+RUN apt-get -y install postfix postfix-mysql postfix-doc openssl getmail4 rkhunter binutils dovecot-imapd dovecot-pop3d dovecot-mysql dovecot-sieve dovecot-lmtpd sudo
 ADD ./etc/postfix/master.cf /etc/postfix/master.cf
 RUN service postfix restart
 RUN service mysql restart
