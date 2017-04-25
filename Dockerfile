@@ -62,6 +62,14 @@ RUN phpenmod mcrypt mbstring
 RUN service nginx restart
 RUN service php7.0-fpm restart
 
+# --- 7.2 Install hhvm
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
+RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
+RUN apt-get update -y && apt-get install -y hhvm
+
+# --- 7.3  Install Let's Encrypt
+RUN apt-get install -y python-certbot -t jessie-backports
+
 # --- 8 Install Postfix, Dovecot, MySQL, phpMyAdmin, rkhunter, binutils
 #RUN echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections
 #RUN echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections
@@ -161,42 +169,42 @@ RUN chown www-data /var/lib/squirrelmail/tmp
 RUN service mysql restart
 
 # --- 20 Install ISPConfig 3
-#RUN cd /tmp && cd . && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
-#RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
-#RUN service mysql restart
-## RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
-## RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
-## RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
-## RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini
+RUN cd /tmp && cd . && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
+RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
+RUN service mysql restart
+# RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
+# RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+# RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
+# RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini
 
-## ADD ./etc/mysql/my.cnf /etc/mysql/my.cnf
-#ADD ./etc/postfix/master.cf /etc/postfix/master.cf
-#ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
+# ADD ./etc/mysql/my.cnf /etc/mysql/my.cnf
+ADD ./etc/postfix/master.cf /etc/postfix/master.cf
+ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
 
-#RUN echo "export TERM=xterm" >> /root/.bashrc
+RUN echo "export TERM=xterm" >> /root/.bashrc
 
 EXPOSE 20 21 22 53/udp 53/tcp 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 30007 30008 30009 3306
 
 # ISPCONFIG Initialization and Startup Script
-#ADD ./start.sh /start.sh
-#ADD ./supervisord.conf /etc/supervisor/supervisord.conf
-#ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
-#ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
-#RUN chmod 755 /start.sh
-#RUN mkdir -p /var/run/sshd
-#RUN mkdir -p /var/log/supervisor
-#RUN mv /bin/systemctl /bin/systemctloriginal
-#ADD ./bin/systemctl /bin/systemctl
+ADD ./start.sh /start.sh
+ADD ./supervisord.conf /etc/supervisor/supervisord.conf
+ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
+ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
+RUN chmod 755 /start.sh
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+RUN mv /bin/systemctl /bin/systemctloriginal
+ADD ./bin/systemctl /bin/systemctl
 
-#RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
-## RUN mysqladmin -u root password pass
-#RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
-#ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
-#RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
-#RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
-## Directory for dump SQL backup
-#RUN mkdir -p /var/backup/sql
-#RUN freshclam
+RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
+# RUN mysqladmin -u root password pass
+RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
+RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
+RUN service mysql restart && mysql -ppass < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
+# Directory for dump SQL backup
+RUN mkdir -p /var/backup/sql
+RUN freshclam
 
 VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
 
