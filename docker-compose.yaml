@@ -1,24 +1,24 @@
 version: '2'
 services:
   nginx:
-    image: evild/alpine-nginx:1.9.15-openssl
+    image: evild/alpine-nginx:openssl
     container_name: lemp_nginx
     restart: always
     links:
       - php
     volumes:
-      - ./html:/var/www/html/:ro
-      - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./home/docker/html:/var/www/html/:ro
+    #  - ./home/docker/nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+    #  - ./home/docker/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
       - 80:80
       - 443:443
   php:
-    image: evild/alpine-php:7.0.6
+    image: evild/alpine-php:latest
     container_name: lemp_php
     restart: always
     volumes:
-      - ./html:/var/www/html
+      - ./home/docker/html:/var/www/html
     depends_on:
       - db
     links:
@@ -40,5 +40,5 @@ volumes:
   db-data:
     driver: local
 networks:
-    front:
+    default:
         driver: bridge
