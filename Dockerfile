@@ -202,4 +202,5 @@ VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/l
 RUN service nginx restart
 RUN service php7.0-fpm restart
 
+CMD ["nginx", "-g", "daemon off;"]
 #CMD ["/bin/bash", "/start.sh"]
