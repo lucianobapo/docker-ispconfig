@@ -150,7 +150,7 @@ RUN apt-get -y install vlogger webalizer awstats geoip-database libclass-dbi-mys
 ADD etc/cron.d/awstats /etc/cron.d/
 
 # --- 17 Install Jailkit
-RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils
+RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils wget
 RUN cd /tmp && wget http://olivier.sessink.nl/jailkit/jailkit-2.17.tar.gz && tar xvfz jailkit-2.17.tar.gz && cd jailkit-2.17 && ./debian/rules binary
 RUN cd /tmp && dpkg -i jailkit_2.17-1_*.deb && rm -rf jailkit-2.17*
 
