@@ -6,29 +6,16 @@ services:
     restart: always
     volumes:
       - ./var/www/html:/var/www/html
-    depends_on:
-      - db
-    links:
-      - db
+      - db-data:/var/lib/mysql
     environment:
       - DB_NAME=lemp_bdd
       - TABLE_PREFIX=lemp_
-      - DB_HOST=lemp
+      - DB_HOST=localhost
       - DB_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
     ports:
           - 80:80
           - 443:443
-  db:
-    image: mariadb:latest
-    container_name: mariadb
-    restart: always
-    volumes:
-      - db-data:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
 volumes:
   db-data:
     driver: local
-#networks:
-#    default:
-#        driver: bridge
