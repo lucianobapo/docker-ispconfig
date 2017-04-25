@@ -1,5 +1,9 @@
 # docker-ispconfig
 
+free -m
+
+cat /etc/issue
+
 docker images |awk '{print $3}'
 
 $(docker images |awk '{print $3}')
