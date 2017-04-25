@@ -115,10 +115,18 @@ RUN service postfix restart
 
 # --- 14 Install PureFTPd And Quota
 
+RUN echo "deb http://http.debian.net/debian jessie main\n\
+deb-src http://http.debian.net/debian jessie main\n\
+deb http://http.debian.net/debian jessie-updates main\n\
+deb-src http://http.debian.net/debian jessie-updates main\n\
+deb http://security.debian.org jessie/updates main\n\
+deb-src http://security.debian.org jessie/updates main\n\
+" > /etc/apt/sources.list
+RUN apt-get -y update
 # install package building helpers
-RUN apt-get -y --force-yes install dpkg-dev debhelper openbsd-inetd
+RUN apt-get -y --force-yes --fix-missing install dpkg-dev debhelper openbsd-inetd
 # install dependancies
-RUN apt-get -y build-dep pure-ftpd-common
+RUN apt-get -y build-dep pure-ftpd
 # build from source
 RUN mkdir /tmp/pure-ftpd-mysql/ && \
     cd /tmp/pure-ftpd-mysql/ && \
