@@ -28,8 +28,8 @@
       <file leaf-file-name="start-docker-machine.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/start-docker-machine.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="14" />
+            <state relative-caret-position="316">
+              <caret line="27" column="63" lean-forward="false" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -136,12 +136,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1493088205676</updated>
-      <workItem from="1493088207874" duration="17538000" />
+      <workItem from="1493088207874" duration="18109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17538000" />
+    <option name="totallyTimeSpent" value="18109000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -262,8 +262,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/start-docker-machine.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="14" />
+        <state relative-caret-position="316">
+          <caret line="27" column="63" lean-forward="false" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
           <folding />
         </state>
       </provider>
