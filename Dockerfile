@@ -30,8 +30,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get install -y curl
 RUN curl https://www.dotdeb.org/dotdeb.gpg | apt-key add -
-RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
-RUN echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
+ADD ./etc/apt/sources.list /etc/apt/sources.list
 RUN apt-get -y update && apt-get -y upgrade
 
 # --- 1.1 Preliminary
@@ -68,8 +67,6 @@ RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d
 RUN apt-get update -y && apt-get install -y hhvm
 
 # --- 7.3  Install Let's Encrypt
-RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list
-RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install certbot -t jessie-backports
 
 # --- 8 Install Postfix, Dovecot, MySQL, phpMyAdmin, rkhunter, binutils
@@ -114,15 +111,6 @@ RUN service postfix restart
 #RUN ln -s /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf
 
 # --- 14 Install PureFTPd And Quota
-
-RUN echo "deb http://http.debian.net/debian jessie main" > /etc/apt/sources.list
-RUN echo "deb-src http://http.debian.net/debian jessie main" > /etc/apt/sources.list
-RUN echo "deb http://http.debian.net/debian jessie-updates main" > /etc/apt/sources.list
-RUN echo "deb-src http://http.debian.net/debian jessie-updates main" > /etc/apt/sources.list
-RUN echo "deb http://security.debian.org jessie/updates main" > /etc/apt/sources.list
-RUN echo "deb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
-RUN apt-get -y update && apt-get -y upgrade
-
 # install package building helpers
 #RUN apt-get -y --force-yes --fix-missing install dpkg-dev debhelper openbsd-inetd
 RUN apt-get -y --force-yes --fix-missing install pure-ftpd-common pure-ftpd-mysql quota quotatool
