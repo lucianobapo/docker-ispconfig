@@ -20,8 +20,11 @@ sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_i
 fi
 # php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+
+service php7.0-fpm restart
 service nginx restart
 service mysql restart
+service postfix restart
 
 if [ -d /usr/local/bin/docker-compose ]; then pwd; fi
 

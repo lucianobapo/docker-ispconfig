@@ -163,75 +163,75 @@ RUN mkdir -p /etc/ssl/private/
 # RUN chmod 600 /etc/ssl/private/pure-ftpd.pem
 # RUN service pure-ftpd-mysql restart
 
-## --- 15 Install BIND DNS Server
-#RUN apt-get -y install bind9 dnsutils
-#
-## --- 16 Install Vlogger, Webalizer, And AWStats
-#RUN apt-get -y install vlogger webalizer awstats geoip-database libclass-dbi-mysql-perl
-#ADD etc/cron.d/awstats /etc/cron.d/
-#
-## --- 17 Install Jailkit
-#RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils wget
-#RUN cd /tmp && wget http://olivier.sessink.nl/jailkit/jailkit-2.17.tar.gz && tar xvfz jailkit-2.17.tar.gz && cd jailkit-2.17 && ./debian/rules binary
-#RUN cd /tmp && dpkg -i jailkit_2.17-1_*.deb && rm -rf jailkit-2.17*
-#
-## --- 18 Install fail2ban
-#RUN apt-get -y install fail2ban
-#ADD ./etc/fail2ban/jail.local /etc/fail2ban/jail.local
-#ADD ./etc/fail2ban/filter.d/pureftpd.conf /etc/fail2ban/filter.d/pureftpd.conf
-#ADD ./etc/fail2ban/filter.d/dovecot-pop3imap.conf /etc/fail2ban/filter.d/dovecot-pop3imap.conf
-#RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
-#RUN service fail2ban restart
-#
-## --- 19 Install squirrelmail
-#RUN apt-get -y install squirrelmail
-##ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
-#ADD ./etc/squirrelmail/config.php /etc/squirrelmail/config.php
-#RUN mkdir /var/lib/squirrelmail/tmp
-#RUN chown www-data /var/lib/squirrelmail/tmp
-##RUN service mysql restart
-#
-## --- 20 Install ISPConfig 3
-#RUN cd /tmp && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
-#RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
-##RUN service mysql restart
-## RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
-## RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
-## RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
-## RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini
-#
-## ADD ./etc/mysql/my.cnf /etc/mysql/my.cnf
-#ADD ./etc/postfix/master.cf /etc/postfix/master.cf
-#ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
-#
-#RUN echo "export TERM=xterm" >> /root/.bashrc
-#
-#EXPOSE 20 21 22 53/udp 53/tcp 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 30007 30008 30009 3306
-#
-## ISPCONFIG Initialization and Startup Script
-#ADD ./start.sh /start.sh
-#ADD ./supervisord.conf /etc/supervisor/supervisord.conf
-#ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
-#ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
-#RUN chmod 755 /start.sh
-#RUN mkdir -p /var/run/sshd
-#RUN mkdir -p /var/log/supervisor
-#RUN mv /bin/systemctl /bin/systemctloriginal
-#ADD ./bin/systemctl /bin/systemctl
-#
-#RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
-## RUN mysqladmin -u root password pass
-##RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
-#ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
-#
-#RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
-#ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
-#RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
-##RUN mysql -uroot -ppassword < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
-## Directory for dump SQL backup
-#RUN mkdir -p /var/backup/sql
-##RUN freshclam
-#
-#VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
-#
-#CMD ["/bin/bash", "/start.sh"]
+# --- 15 Install BIND DNS Server
+RUN apt-get -y install bind9 dnsutils
+
+# --- 16 Install Vlogger, Webalizer, And AWStats
+RUN apt-get -y install vlogger webalizer awstats geoip-database libclass-dbi-mysql-perl
+ADD etc/cron.d/awstats /etc/cron.d/
+
+# --- 17 Install Jailkit
+RUN apt-get -y install build-essential autoconf automake libtool flex bison debhelper binutils wget
+RUN cd /tmp && wget http://olivier.sessink.nl/jailkit/jailkit-2.17.tar.gz && tar xvfz jailkit-2.17.tar.gz && cd jailkit-2.17 && ./debian/rules binary
+RUN cd /tmp && dpkg -i jailkit_2.17-1_*.deb && rm -rf jailkit-2.17*
+
+# --- 18 Install fail2ban
+RUN apt-get -y install fail2ban
+ADD ./etc/fail2ban/jail.local /etc/fail2ban/jail.local
+ADD ./etc/fail2ban/filter.d/pureftpd.conf /etc/fail2ban/filter.d/pureftpd.conf
+ADD ./etc/fail2ban/filter.d/dovecot-pop3imap.conf /etc/fail2ban/filter.d/dovecot-pop3imap.conf
+RUN echo "ignoreregex =" >> /etc/fail2ban/filter.d/postfix-sasl.conf
+RUN service fail2ban restart
+
+# --- 19 Install squirrelmail
+RUN apt-get -y install squirrelmail
+#ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
+ADD ./etc/squirrelmail/config.php /etc/squirrelmail/config.php
+RUN mkdir /var/lib/squirrelmail/tmp
+RUN chown www-data /var/lib/squirrelmail/tmp
+#RUN service mysql restart
+
+# --- 20 Install ISPConfig 3
+RUN cd /tmp && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
+RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
+#RUN service mysql restart
+# RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
+# RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+# RUN sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
+# RUN sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini
+
+# ADD ./etc/mysql/my.cnf /etc/mysql/my.cnf
+ADD ./etc/postfix/master.cf /etc/postfix/master.cf
+ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
+
+RUN echo "export TERM=xterm" >> /root/.bashrc
+
+EXPOSE 20 21 22 53/udp 53/tcp 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 30007 30008 30009 3306
+
+# ISPCONFIG Initialization and Startup Script
+ADD ./start.sh /start.sh
+ADD ./supervisord.conf /etc/supervisor/supervisord.conf
+ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
+ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
+RUN chmod 755 /start.sh
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+RUN mv /bin/systemctl /bin/systemctloriginal
+ADD ./bin/systemctl /bin/systemctl
+
+RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfig3_install/install/autoinstall.ini
+# RUN mysqladmin -u root password pass
+#RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
+
+RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
+RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
+#RUN mysql -uroot -ppassword < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
+# Directory for dump SQL backup
+RUN mkdir -p /var/backup/sql
+#RUN freshclam
+
+VOLUME ["/var/www/","/var/mail/","/var/backup/","/var/lib/mysql","/etc/","/usr/local/ispconfig","/var/log/"]
+
+CMD ["/bin/bash", "/start.sh"]
