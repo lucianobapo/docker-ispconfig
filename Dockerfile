@@ -192,8 +192,11 @@ RUN chown www-data /var/lib/squirrelmail/tmp
 #RUN service mysql restart
 
 # --- 20 Install ISPConfig 3
-RUN cd /tmp && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
-RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
+
+#RUN cd /tmp && wget http://www.ispconfig.org/downloads/ISPConfig-3-stable.tar.gz
+RUN cd /tmp && wget https://downloads.sourceforge.net/project/ispconfig/ISPConfig%203/ISPConfig-3.1.2/ISPConfig-3.1.2.tar.gz?r=&ts=1493211520&use_mirror=ufpr
+#RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
+RUN cd /tmp && tar xfz ISPConfig-3.1.2.tar.gz
 #RUN service mysql restart
 # RUN ["/bin/bash", "-c", "cat /tmp/install_ispconfig.txt | php -q /tmp/ispconfig3_install/install/install.php"]
 # RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
@@ -217,7 +220,7 @@ ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
 ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
 
-ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
+#ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
 
 RUN chmod 755 /start.sh
 RUN mkdir -p /var/run/sshd

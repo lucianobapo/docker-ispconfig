@@ -219,8 +219,7 @@ do {
 		$conf['mysql']['charset'] = $tmp_mysql_server_charset;
 		$finished = true;
 	} else {
-		swriteln($inst->lng('Unable to connect to the specified MySQL server: '.$tmp_mysql_server_host.' '.$tmp_mysql_server_admin_user.' '.$tmp_mysql_server_admin_password).' '.mysqli_connect_error());
-        die;
+		swriteln($inst->lng('Unable to connect to the specified MySQL server').' '.mysqli_connect_error());
 	}
 } while ($finished == false);
 unset($finished);
