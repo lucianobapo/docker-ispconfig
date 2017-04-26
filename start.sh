@@ -9,6 +9,13 @@ newlist -q mailman $(MAILMAN_EMAIL) $(MAILMAN_PASS)
 newaliases
 fi
 echo "START"
+#rsync -rvztPhe ssh /home/luciano/code/docker-ispconfig/start.sh 192.168.99.100:/start.sh
+killall apache2
+service php7.0-fpm restart
+service nginx restart
+service mysql restart
+service postfix restart
+
 if [ ! -z "$LANGUAGE" ]; then
 sed -i "s/^language=en$/language=$LANGUAGE/g" /tmp/ispconfig3_install/install/autoinstall.ini
 fi
@@ -21,14 +28,6 @@ fi
 # php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
-service php7.0-fpm restart
-service nginx restart
-service mysql restart
-service postfix restart
-
-if [ -d /usr/local/bin/docker-compose ]; then pwd; fi
-
 if [ ! -f /usr/local/ispconfig/interface/lib/config.inc.php ]; then
 	php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
-	killall apache2
 fi

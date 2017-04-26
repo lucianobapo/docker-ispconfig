@@ -204,6 +204,9 @@ RUN cd /tmp && tar xfz ISPConfig-3-stable.tar.gz
 ADD ./etc/postfix/master.cf /etc/postfix/master.cf
 ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
 
+ADD ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
+RUN service nginx restart
+
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
 EXPOSE 20 21 22 53/udp 53/tcp 80 443 953 8080 30000 30001 30002 30003 30004 30005 30006 30007 30008 30009 3306

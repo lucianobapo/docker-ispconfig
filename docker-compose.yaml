@@ -19,7 +19,7 @@ services:
       - MAILMAN_PASS=password
     ports:
           - 21:21
-          - 22:22
+          - 2222:22
           - 53:53
           - 80:80
           - 443:443
