@@ -5,7 +5,7 @@ services:
     container_name: ispconfig
     restart: always
     volumes:
-#      - ./var/www/html:/var/www/html
+      - ./var/www/html:/var/www/html
       - db-data:/var/lib/mysql
     environment:
       - DB_NAME=lemp_bdd
