@@ -210,6 +210,7 @@ ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
 
 ADD ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
 RUN service nginx stop
+RUN service php7.0-fpm stop
 
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
