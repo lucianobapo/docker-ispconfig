@@ -27,7 +27,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
 #RUN service mysql start
-RUN mysqld
+#RUN mysqld
 
 # --- 1 Update Your Debian Installation
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
