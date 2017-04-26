@@ -76,15 +76,14 @@ RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enabled/defaul
 RUN service php7.0-fpm restart
 RUN service nginx restart
 
-#
-## --- 7.2 Install hhvm
-#RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
-#RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
-#RUN apt-get update -y && apt-get install -y hhvm
-#
-## --- 7.3  Install Let's Encrypt
-#RUN apt-get -y install certbot -t jessie-backports
-#
+# --- 7.2 Install hhvm
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
+RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
+RUN apt-get update -y && apt-get install -y hhvm
+
+# --- 7.3  Install Let's Encrypt
+RUN apt-get -y install certbot -t jessie-backports
+
 ## --- 8 Install Postfix, Dovecot, MySQL, phpMyAdmin, rkhunter, binutils
 ##RUN echo 'mysql-server mysql-server/root_password password pass' | debconf-set-selections
 ##RUN echo 'mysql-server mysql-server/root_password_again password pass' | debconf-set-selections
