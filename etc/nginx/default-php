@@ -49,18 +49,18 @@ server {
         }
 
         # PHP FPM configuration.
-            include /etc/nginx/conf-fpm.conf
+        #include /etc/nginx/conf-fpm.conf
 
         # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
         #
-        #location ~ \.php$ {
-        #       include snippets/fastcgi-php.conf;
-        #
-        #       # With php5-cgi alone:
-        #       fastcgi_pass 127.0.0.1:9000;
-        #       # With php5-fpm:
-        #       fastcgi_pass unix:/var/run/php5-fpm.sock;
-        #}
+        location ~ \.php$ {
+               include snippets/fastcgi-php.conf;
+               # With php5-cgi alone:
+               #fastcgi_pass 127.0.0.1:9000;
+               # With php5-fpm:
+               #fastcgi_pass unix:/var/run/php5-fpm.sock;
+               fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        }
 
         # deny access to .htaccess files, if Apache's document root
         # concurs with nginx's one

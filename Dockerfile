@@ -69,7 +69,7 @@ RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php
 RUN phpenmod mcrypt mbstring
 
 ADD ./etc/nginx/default-php /etc/nginx/sites-available/default-php
-ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
+#ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
 RUN if [ -f /etc/nginx/sites-enabled/default ]; then rm /etc/nginx/sites-enabled/default; fi
 RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enabled/default-php
 
