@@ -205,7 +205,7 @@ ADD ./etc/postfix/master.cf /etc/postfix/master.cf
 ADD ./etc/clamav/clamd.conf /etc/clamav/clamd.conf
 
 ADD ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
-RUN service nginx restart
+RUN service nginx stop
 
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
