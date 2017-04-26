@@ -69,8 +69,9 @@ ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
 RUN if -f /etc/nginx/sites-enabled/default ; then rm /etc/nginx/sites-enabled/default; fi
 RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enabled/default-php
 
-RUN service nginx restart
 RUN service php7.0-fpm restart
+RUN if ! service nginx restart > /dev/null ; then echo "Could not nginx restart" && cat /var/log/nginx/error.log; fi
+
 
 # --- 7.2 Install hhvm
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
