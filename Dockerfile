@@ -18,52 +18,52 @@
 # https://www.howtoforge.com/tutorial/perfect-server-debian-8-jessie-apache-bind-dovecot-ispconfig-3/
 #
 
-FROM mariadb:latest
+FROM lucianobp/ispconfig:latest
 
 MAINTAINER Luciano Porto <luciano.bapo@gmail.com> version: 0.1
 
 # Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
 
-ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
-#RUN service mysql start
-#RUN mysqld
-
-# --- 1 Update Your Debian Installation
+#ADD ./etc/mysql/debian.cnf /etc/mysql/debian.cnf
+##RUN service mysql start
+##RUN mysqld
+#
+## --- 1 Update Your Debian Installation
+##ADD ./etc/apt/sources.list /etc/apt/sources.list
+#RUN apt-get -y update && apt-get -y upgrade
+#RUN apt-get install -y curl
+#RUN curl https://www.dotdeb.org/dotdeb.gpg | apt-key add -
 #ADD ./etc/apt/sources.list /etc/apt/sources.list
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install -y curl
-RUN curl https://www.dotdeb.org/dotdeb.gpg | apt-key add -
-ADD ./etc/apt/sources.list /etc/apt/sources.list
-RUN apt-get -y update && apt-get -y upgrade
+#RUN apt-get -y update && apt-get -y upgrade
+#
+## --- 1.1 Preliminary
+#RUN apt-get -y install rsyslog rsyslog-relp logrotate supervisor
+#RUN touch /var/log/cron.log
+## Create the log file to be able to run tail
+#RUN touch /var/log/auth.log
+#
+## --- 2 Install the SSH server
+#RUN apt-get -y install ssh openssh-server rsync
+#
+## --- 3 Install a shell text editor
+#RUN apt-get -y install nano vim-nox
+#
+## --- 6 Change The Default Shell
+#RUN echo "dash  dash/sh boolean no" | debconf-set-selections
+#RUN dpkg-reconfigure dash
+#
+## --- 7 Synchronize the System Clock
+#RUN apt-get -y install ntp ntpdate
 
-# --- 1.1 Preliminary
-RUN apt-get -y install rsyslog rsyslog-relp logrotate supervisor
-RUN touch /var/log/cron.log
-# Create the log file to be able to run tail
-RUN touch /var/log/auth.log
-
-# --- 2 Install the SSH server
-RUN apt-get -y install ssh openssh-server rsync
-
-# --- 3 Install a shell text editor
-RUN apt-get -y install nano vim-nox
-
-# --- 6 Change The Default Shell
-RUN echo "dash  dash/sh boolean no" | debconf-set-selections
-RUN dpkg-reconfigure dash
-
-# --- 7 Synchronize the System Clock
-RUN apt-get -y install ntp ntpdate
-
-## --- 7.1 Install nginx, php7.0
-#LABEL Description="Webserver"
-#RUN apt remove -y apache* --purge
-#RUN if ps -C apache2 > /dev/null ; then killall apache2 ; fi
-#RUN if ps -C apache > /dev/null ; then killall apache ; fi
-#RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
-#RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php7.0-memcached php7.0-ps
-#RUN phpenmod mcrypt mbstring
+# --- 7.1 Install nginx, php7.0
+LABEL Description="Webserver"
+RUN apt remove -y apache* --purge
+RUN if ps -C apache2 > /dev/null ; then killall apache2 ; fi
+RUN if ps -C apache > /dev/null ; then killall apache ; fi
+RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
+RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php7.0-memcached php7.0-ps
+RUN phpenmod mcrypt mbstring
 #
 #ADD ./etc/nginx/default-php /etc/nginx/sites-available/default-php
 #ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
