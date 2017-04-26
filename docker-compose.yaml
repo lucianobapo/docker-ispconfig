@@ -1,12 +1,13 @@
-version: '2'
+version: '3'
 services:
   web:
     build: .
+    image: ispconfig-img:0.1
     container_name: ispconfig
-    restart: always
+    restart: on-failure
     volumes:
-      - ./var/www/html:/var/www/html
-      - db-data:/var/lib/mysql
+      - ./var/www:/var/www
+      - ./var/lib/mysql:/var/lib/mysql
     environment:
       - DB_NAME=lemp_bdd
       - TABLE_PREFIX=lemp_
@@ -19,13 +20,15 @@ services:
     ports:
           - 21:21
           - 22:22
+          - 53:53
           - 80:80
           - 443:443
+          - 953:953
           - 3306:3306
           - 8080:8080
-volumes:
-  db-data:
-    driver: local
+#volumes:
+#  db-data:
+#    driver: local
 #networks:
 #    default:
 #        driver: bridge

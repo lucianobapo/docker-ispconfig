@@ -66,7 +66,8 @@ RUN phpenmod mcrypt mbstring
 
 ADD ./etc/nginx/default-php /etc/nginx/sites-available/default-php
 ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
-RUN rm /etc/nginx/sites-enable/default && ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enable/default-php
+RUN if -f /etc/nginx/sites-enable/default ; then rm /etc/nginx/sites-enable/default; fi
+RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enable/default-php
 
 RUN service nginx restart
 RUN service php7.0-fpm restart
