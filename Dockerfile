@@ -74,7 +74,7 @@ RUN if [ -f /etc/nginx/sites-enabled/default ]; then rm /etc/nginx/sites-enabled
 RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enabled/default-php
 
 RUN service php7.0-fpm restart
-RUN if ! service nginx restart > /dev/null ; then echo "Could not nginx restart" && cat /var/log/nginx/error.log; fi
+RUN service nginx restart
 
 #
 ## --- 7.2 Install hhvm
