@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     build: .
-    image: ispconfig-img:0.2
+    image: lucianobp/ispconfig:0.2
     container_name: ispconfig
     restart: on-failure
     volumes:
