@@ -221,7 +221,7 @@ ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./etc/cron.daily/sql_backup.sh /etc/cron.daily/sql_backup.sh
 ADD ./autoinstall.ini /tmp/ispconfig3_install/install/autoinstall.ini
 
-#ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
+ADD ./ispconfig3_install/install/install.php /tmp/ispconfig3_install/install/install.php
 
 RUN chmod 755 /start.sh
 RUN mkdir -p /var/run/sshd
@@ -233,11 +233,9 @@ RUN sed -i "s/^hostname=server1.example.com$/hostname=$HOSTNAME/g" /tmp/ispconfi
 # RUN mysqladmin -u root password pass
 #RUN service mysql restart && php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
 
-
-#RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
-#ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
-#RUN if [ -d /usr/local/ispconfig ]; then cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/; fi
-#RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
+RUN php -q /tmp/ispconfig3_install/install/install.php --autoinstall=/tmp/ispconfig3_install/install/autoinstall.ini
+ADD ./ISPConfig_Clean-3.0.5 /tmp/ISPConfig_Clean-3.0.5
+RUN cp -r /tmp/ISPConfig_Clean-3.0.5/interface /usr/local/ispconfig/
 #RUN mysql -uroot -ppassword < /tmp/ISPConfig_Clean-3.0.5/sql/ispc-clean.sql
 # Directory for dump SQL backup
 RUN mkdir -p /var/backup/sql
