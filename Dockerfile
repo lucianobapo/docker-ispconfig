@@ -59,14 +59,15 @@ RUN apt-get -y install ntp ntpdate
 # --- 7.1 Install nginx, php7.0
 LABEL Description="Webserver"
 RUN apt remove -y apache* --purge
-RUN if ! killall apache2 > /dev/null ; then echo "Could not send SIGTERM to aṕache"; fi
+RUN if ps -C apache2 > /dev/null ; then killall apache2 ; fi
+RUN if ps -C apache > /dev/null ; then killall apache ; fi
 RUN apt -y install nginx php7.0 php7.0-fpm php7.0-curl php7.0-json php7.0-mbstring php7.0-xml php7.0-zip php7.0-intl php7.0-bz2 php7.0-gd php7.0-mysql php7.0-mcrypt mcrypt php7.0-pspell php7.0-recode php7.0-snmp php7.0-sqlite3 php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-imap php7.0-cgi
 RUN apt -y install memcached imagemagick fcgiwrap php7.0-apcu php7.0-imagick php7.0-memcached php7.0-ps
 RUN phpenmod mcrypt mbstring
 
 ADD ./etc/nginx/default-php /etc/nginx/sites-available/default-php
 ADD ./etc/nginx/conf-fpm.conf /etc/nginx/conf-fpm.conf
-RUN if [ -f /etc/nginx/sites-enabled/default]; then rm /etc/nginx/sites-enabled/default; fi
+RUN if [ -f /etc/nginx/sites-enabled/default ]; then rm /etc/nginx/sites-enabled/default; fi
 RUN ln -s /etc/nginx/sites-available/default-php /etc/nginx/sites-enabled/default-php
 
 RUN service php7.0-fpm restart
