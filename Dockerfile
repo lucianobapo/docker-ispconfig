@@ -169,7 +169,7 @@ RUN service fail2ban restart
 
 # --- 19 Install squirrelmail
 RUN apt-get -y install squirrelmail
-ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
+#ADD ./etc/apache2/conf-enabled/squirrelmail.conf /etc/apache2/conf-enabled/squirrelmail.conf
 ADD ./etc/squirrelmail/config.php /etc/squirrelmail/config.php
 RUN mkdir /var/lib/squirrelmail/tmp
 RUN chown www-data /var/lib/squirrelmail/tmp
